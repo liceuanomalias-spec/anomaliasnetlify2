@@ -1,0 +1,39 @@
+# Netlify config: build + routing for single-deploy app
+
+[build]
+  base = "frontend"
+  publish = "dist"
+  command = "npx expo export -p web"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  # Each function gets its own dependencies installed
+  included_files = ["netlify/functions/**"]
+
+# Cache static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_expo/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# SPA fallback (when user refreshes on /admin/dashboard, etc.)
+# Order matters - this must come AFTER the function route is registered via the
+# function's `config.path = "/api/*"` directive, which Netlify processes first.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

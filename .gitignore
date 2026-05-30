@@ -1,0 +1,50 @@
+# Node / yarn / npm
+node_modules/
+.npm/
+yarn-error.log
+*.log
+
+# Expo / Metro
+.expo/
+.metro-cache/
+.expo-shared/
+web-build/
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Tests / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+test_reports/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Secrets - NEVER commit these
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Netlify
+.netlify/
+
+# Build artefacts
+*.tgz
